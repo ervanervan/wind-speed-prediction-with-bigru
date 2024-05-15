@@ -24,7 +24,7 @@ export default function Footer() {
               &copy; 2024 Made by Ervan Kurniawan
             </p>
           </div>
-          <div className="flex flex-col gap-y-1 md:flex-row gap-x-24 text-white-3 text-sm">
+          <div className="flex flex-col gap-y-1 lg:flex-row lg:gap-x-24 text-white-3 text-sm">
             <p>Teknik Informatika 2020</p>
             <p>Fakultas Teknik</p>
             <p>Universitas Maritim Raja Ali haji</p>
