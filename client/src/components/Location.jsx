@@ -37,12 +37,12 @@ export default function Location() {
                 sektor-sektor rentan terhadap perubahan cuaca.
               </p>
             </div>
-            <img src={img1} alt="" className="w-full md:w-[32rem]" />
+            <img src={img1} alt="" className="w-full md:w-[32rem] mx-auto" />
           </div>
           <img
             src={img2}
             alt=""
-            className="w-full h-44 lg:w-[20rem] lg:h-auto mt-10 md:mt-0 object-cover md:object-none rounded-md"
+            className="w-full h-44 md:h-[16.75rem] md:w-[20rem] lg:h-auto object-cover md:object-none rounded-md md:hidden lg:block"
           />
         </div>
 
@@ -65,12 +65,12 @@ export default function Location() {
                 mendukung sektor-sektor terdampak perubahan cuaca.
               </p>
             </div>
-            <img src={img3} alt="" className="w-full md:w-[32rem]" />
+            <img src={img3} alt="" className="w-full md:w-[32rem] mx-auto" />
           </div>
           <img
             src={img4}
             alt=""
-            className="w-full h-44 md:w-[20rem] md:h-auto mt-10 md:mt-0 object-cover md:object-none rounded-md"
+            className="w-full h-44 md:h-[16.75rem] md:w-[20rem] lg:h-auto object-cover md:object-none rounded-md md:hidden lg:block"
           />
         </div>
       </div>
