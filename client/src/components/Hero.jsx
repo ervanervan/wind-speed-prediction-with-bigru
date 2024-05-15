@@ -30,7 +30,7 @@ export default function Hero() {
             <img
               src={PatternHero}
               alt=""
-              className="absolute top-1/2 -translate-y-1/2 left-1/2 transform -translate-x-1/2 -z-10 hidden md:block"
+              className="absolute top-1/2 -translate-y-1/2 left-1/2 transform -translate-x-1/2 -z-10 hidden lg:block"
             />
             <h1 className="text-white-2 font-medium text-4xl md:text-5xl flex items-center justify-center text-center leading-[3.5rem] md:leading-[4rem]">
               Implementasi algoritma <br /> Bidirectional Gated Recurrent Unit{" "}
