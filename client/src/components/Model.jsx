@@ -6,7 +6,7 @@ export default function Model() {
   return (
     <section className="relative">
       <div className="container mx-auto">
-        <div className="flex md:pt-20 md:pb-12 gap-x-32 items-start px-5 py-8 md:px-0">
+        <div className="flex md:pt-20 md:pb-12 gap-x-32 items-start px-5 py-8">
           <img src={model} alt="" className="hidden md:block" />
           <div className="flex flex-col gap-6">
             <h1 className="text-3xl md:text-4xl font-medium text-white-2">
