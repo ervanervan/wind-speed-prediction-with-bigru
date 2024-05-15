@@ -23,7 +23,7 @@ export default function Location() {
         className="absolute bottom-0 right-0 -z-10"
       />
       <div className="container mx-auto">
-        <div className="flex flex-col md:flex-row py-12 md:gap-x-20 xl:gap-x-32 items-start px-5">
+        <div className="flex flex-col lg:flex-row gap-y-8 py-12 xl:gap-x-32 items-start px-5">
           <img src={location} alt="" className="hidden md:block" />
           <div className="flex flex-col gap-16">
             <div className="flex flex-col gap-6">
@@ -42,15 +42,15 @@ export default function Location() {
           <img
             src={img2}
             alt=""
-            className="w-full h-44 md:w-[20rem] md:h-auto mt-10 md:mt-0 object-cover md:object-none rounded-md"
+            className="w-full h-44 lg:w-[20rem] lg:h-auto mt-10 md:mt-0 object-cover md:object-none rounded-md"
           />
         </div>
 
-        <div className="flex flex-col md:flex-row py-12 md:gap-x-20 xl:gap-x-32 items-start px-5">
+        <div className="flex flex-col lg:flex-row gap-y-8 py-12 xl:gap-x-32 items-start px-5">
           <img
             src={location}
             alt=""
-            className="opacity-0 hidden md:block"
+            className="opacity-0 hidden lg:block"
             draggable="false"
           />
           <div className="flex flex-col gap-16">
