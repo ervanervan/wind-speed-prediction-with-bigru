@@ -5,23 +5,23 @@ import gradientTL from "../assets/gradient-t-l.svg";
 import gradientBL from "../assets/gradient-b-l.svg";
 import gradientTR from "../assets/gradient-t-r.svg";
 import gradientBR from "../assets/gradient-b-r.svg";
-import FF_AVG_ANB from "./FF_AVG_ANB";
-import FF_X_ANB from "./FF_X_ANB";
 import IconAir from "../assets/icons/IconAir";
 import Tabs from "../components/Tabs";
 import Footer from "../components/Footer";
+import FF_AVG_TPI from "./FF_AVG_TPI";
+import FF_X_TPI from "./FF_X_TPI";
 
 const TanjungPinangPage = () => {
   const tabs = [
     {
       label: "Ff_Avg",
       icon: IconAir,
-      content: <FF_AVG_ANB />,
+      content: <FF_AVG_TPI />,
     },
     {
       label: "Ff_X",
       icon: IconAir,
-      content: <FF_X_ANB />,
+      content: <FF_X_TPI />,
     },
   ];
 
