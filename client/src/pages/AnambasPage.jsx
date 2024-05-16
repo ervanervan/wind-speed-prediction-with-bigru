@@ -6,18 +6,21 @@ import gradientTR from "../assets/gradient-t-r.svg";
 import gradientBR from "../assets/gradient-b-r.svg";
 import Navbar from "../components/Navbar";
 import Tabs from "../components/Tabs";
+import IconAir from "../assets/icons/IconAir";
+import IconData from "../assets/icons/IconData";
+import FF_X_ANB from "./FF_X_ANB";
 
 const AnambasPage = () => {
   const tabs = [
     {
       label: "Ff_Avg",
-      // icon: HomeIcon,
+      icon: IconAir,
       content: <div>Content for Tab 1</div>,
     },
     {
       label: "Ff_x",
-      // icon: HomeIcon,
-      content: <div>Content for Tab 2</div>,
+      icon: IconAir,
+      content: <FF_X_ANB />,
     },
   ];
 

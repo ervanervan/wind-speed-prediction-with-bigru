@@ -4,8 +4,8 @@ const Tabs = ({ tabs }) => {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <div className="container mx-auto px-5 py-20">
-      <div className="flex gap-2 items-center justify-center">
+    <div className="container mx-auto">
+      <div className="flex gap-2 items-center justify-center px-5 pt-20 pb-10">
         {tabs.map((tab, index) => (
           <button
             key={index}
@@ -16,8 +16,10 @@ const Tabs = ({ tabs }) => {
             }`}
             onClick={() => setActiveTab(index)}
           >
-            {tab.icon && <tab.icon className="h-5 w-5 mr-2" />}
-            {tab.label}
+            <div className="flex items-center">
+              {tab.icon && <tab.icon className="h-6 w-6 mr-2" />}
+              {tab.label}
+            </div>
           </button>
         ))}
       </div>
