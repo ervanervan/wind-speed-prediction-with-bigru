@@ -23,7 +23,6 @@ const FF_X_TPI = () => {
       content: <PredictNewData />,
     },
   ];
-
   return (
     <>
       <div className="px-5 py-4">
