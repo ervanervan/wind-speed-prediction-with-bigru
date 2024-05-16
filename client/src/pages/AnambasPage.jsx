@@ -19,7 +19,7 @@ const AnambasPage = () => {
       content: <FF_AVG_ANB />,
     },
     {
-      label: "Ff_x",
+      label: "Ff_X",
       icon: IconAir,
       content: <FF_X_ANB />,
     },
