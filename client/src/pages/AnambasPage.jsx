@@ -9,6 +9,7 @@ import Tabs from "../components/Tabs";
 import IconAir from "../assets/icons/IconAir";
 import FF_X_ANB from "./FF_X_ANB";
 import FF_AVG_ANB from "./FF_AVG_ANB";
+import Footer from "../components/Footer";
 
 const AnambasPage = () => {
   const tabs = [
@@ -59,6 +60,7 @@ const AnambasPage = () => {
       </section>
 
       <Tabs tabs={tabs} />
+      <Footer />
     </>
   );
 };
