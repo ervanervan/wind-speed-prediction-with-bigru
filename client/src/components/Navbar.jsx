@@ -70,11 +70,6 @@ export default function Navbar() {
             <hr className="border[.5px] border-bgBlack2 w-full" />
           </div>
 
-          {/* <img
-            src={gradientLTR}
-            alt=""
-            className="absolute -top-48 right-0 -z-10"
-          /> */}
           <img
             src={gradientLCL}
             alt=""
