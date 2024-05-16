@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 
-const Tabs = ({ tabs }) => {
+export default function TabsData({ tabs }) {
   const [activeTab, setActiveTab] = useState(0);
-
   return (
     <div className="container mx-auto">
-      <div className="flex gap-2 items-center justify-center w-full px-5 py-6 overflow-x-scroll scrollbar-hide">
+      <div className="flex gap-2 items-center w-full py-6 overflow-x-scroll scrollbar-hide">
         {tabs.map((tab, index) => (
           <button
             key={index}
@@ -26,6 +25,4 @@ const Tabs = ({ tabs }) => {
       <div>{tabs[activeTab] && <div>{tabs[activeTab].content}</div>}</div>
     </div>
   );
-};
-
-export default Tabs;
+}

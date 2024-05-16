@@ -2,7 +2,7 @@ import React from "react";
 import IconData from "../assets/icons/IconData";
 import TabsData from "../components/TabsData";
 
-const FF_X_ANB = () => {
+const FF_AVG_ANB = () => {
   const tabs = [
     {
       label: "All Data",
@@ -20,11 +20,12 @@ const FF_X_ANB = () => {
       content: <div>Content for Tab 3</div>,
     },
   ];
+
   return (
     <>
       <div className="px-5 py-4">
         <h1 className="text-3xl text-white-1 font-semibold">
-          Kecepatan Angin Maksimum
+          Kecepatan Angin Rata-rata
         </h1>
         <TabsData tabs={tabs} />
       </div>
@@ -32,4 +33,4 @@ const FF_X_ANB = () => {
   );
 };
 
-export default FF_X_ANB;
+export default FF_AVG_ANB;

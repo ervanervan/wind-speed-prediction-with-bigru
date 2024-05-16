@@ -7,15 +7,15 @@ import gradientBR from "../assets/gradient-b-r.svg";
 import Navbar from "../components/Navbar";
 import Tabs from "../components/Tabs";
 import IconAir from "../assets/icons/IconAir";
-import IconData from "../assets/icons/IconData";
 import FF_X_ANB from "./FF_X_ANB";
+import FF_AVG_ANB from "./FF_AVG_ANB";
 
 const AnambasPage = () => {
   const tabs = [
     {
       label: "Ff_Avg",
       icon: IconAir,
-      content: <div>Content for Tab 1</div>,
+      content: <FF_AVG_ANB />,
     },
     {
       label: "Ff_x",
@@ -43,7 +43,7 @@ const AnambasPage = () => {
 
         <div className="container mx-auto relative">
           <div>
-            <div className="md:mt-12 px-5 py-20 relative">
+            <div className="md:my-12 px-5 py-20 relative">
               <img
                 src={PatternHero}
                 alt=""
