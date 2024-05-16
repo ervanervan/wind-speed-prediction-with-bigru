@@ -42,7 +42,7 @@ export default function Navbar() {
           </div>
         </div>
         <button className="md:hidden" onClick={handleToggle}>
-          <IconMenu className="size-8 stroke-white-2" />
+          <IconMenu className="size-7 stroke-white-2" />
         </button>
 
         <div
@@ -85,10 +85,10 @@ export default function Navbar() {
             <img src={logoWhite} alt="" className="w-32" />
           </Link>
           <button
-            className="absolute top-8 right-5 sm:right-16"
+            className="absolute top-7 right-4 sm:right-16"
             onClick={handleToggle}
           >
-            <IconClose className="size-8 stroke-white-2" />
+            <IconClose className="size-9 stroke-white-2" />
           </button>
         </div>
       </nav>
