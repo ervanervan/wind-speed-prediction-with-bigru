@@ -14,13 +14,13 @@ export default function PredictNewData({ data }) {
           headers={headers}
           data={data_angin}
         />
-        <div>
+        {/* <div>
           <img
             className="w-[55%]"
             src="/forecasting_Bidirectional_GRU_FF_X_ANAMBAS.jpeg"
             alt=""
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
