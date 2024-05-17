@@ -1,0 +1,5 @@
+{
+    "MAPE": 32.69348412028475,
+    "AKURASI": 67.30651587971525,
+    "model_name": "Bidirectional_GRU_FF_X_ANAMBAS"
+}

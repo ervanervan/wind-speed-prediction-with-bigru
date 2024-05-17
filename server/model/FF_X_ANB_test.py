@@ -2,7 +2,6 @@ import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import pandas as pd
-import json
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
@@ -30,17 +29,17 @@ def create_dataset(dataset, timeseries=1):
     X, Y = [], []
     for i in range(len(dataset)-timeseries):
         end_ix = i + timeseries
-        # if end_ix + timeseries > len(dataset):  # Pastikan masih ada data untuk input 5 hari sebelumnya
-        #     break
+        if end_ix + timeseries > len(dataset):  # Pastikan masih ada data untuk input 5 hari sebelumnya
+            break
         a = dataset[i:end_ix, 0]
-        b= dataset[end_ix, 0]
         X.append(a)
-        Y.append(b)
+        Y.append(dataset[end_ix-1, 0])  # Menggunakan nilai terakhir dari input sebagai output
     return np.array(X), np.array(Y)
+
+
 timeseries = 5
 # Mengubah bentuk input menjadi [samples, time steps, features]
 X, Y = create_dataset(data_scaled, timeseries)
-# X= np.reshape(Y, (Y.shape[0], timeseries, 1))
 X = np.reshape(X, (X.shape[0], timeseries, 1))
 
 # Membagi data menjadi 70% training dan 30% testing
@@ -53,22 +52,48 @@ Y_train, Y_test = Y[:train_size], Y[train_size:]
 
 def createModel():
     model = Sequential()
-    model.add(Bidirectional(GRU(50, activation='tanh', return_sequences=False), input_shape=(timeseries, 1)))
-    model.add(Dense(1, activation='sigmoid'))
-    model.summary()
+    model.add(Bidirectional(GRU(50, activation='tanh', return_sequences=False, input_shape=(timeseries, 1))))
+    model.add(Dense(1))
     model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mae'])
     return model
-
+print(X_train)
 model = createModel()
 
 # Melatih model
-def trainingModel(model):
-    model.fit(X_train, Y_train, epochs=100, batch_size=16, verbose=1, validation_split=0.2)
+# Melatih model secara bertahap
+def trainingModel(model, X_train, Y_train, epochs=1):
+    for epoch in range(epochs):
+        for i in range(len(X_train)):
+            current_data = X_train[i].reshape(1, timeseries, 1)
+            model.fit(current_data, Y_train[i].reshape(1, 1), epochs=1, batch_size=1, verbose=1)
+            prediction = model.predict(current_data[-1].reshape(1, timeseries, 1))
+            
+            # Update training data with the prediction
+            if i + 1 < len(X_train):
+                X_train[i + 1, 0, 0] = prediction
+        
     return model
 
-history = trainingModel(model)
+history = trainingModel(model, X_train, Y_train)
+# print(data_train)
 
 # Evaluasi model
+
+
+def testingModel(model, X_test, Y_test, epochs=1):
+    for epoch in range(epochs):
+        for i in range(len(X_test)):
+            current_data = X_test[i].reshape(1, timeseries, 1)
+            model.fit(current_data, Y_test[i].reshape(1, 1), epochs=1, batch_size=1, verbose=1)
+            prediction = model.predict(current_data[-1].reshape(1, timeseries, 1))
+            
+            # Update testing data with the prediction
+            if i + 1 < len(X_test):
+                X_test[i + 1, 0, 0] = prediction
+        
+    return model
+
+model = testingModel(model, X_test, Y_test)
 train_predict = model.predict(X_train)
 test_predict = model.predict(X_test)
 # print(X_test)
@@ -91,18 +116,6 @@ print(f'MAE: {mae:.4f}')
 print(f'MAPE: {mape:.2f}%')
 print(f'Akurasi: {akurasi:.2f}%')
 
-model_name = "Bidirectional_GRU_FF_X_ANAMBAS"
-model_performance = {
-    'MAPE' : mape,
-    'AKURASI' : akurasi,
-    'model_name' : model_name
-}
-
-# Menyimpan variabel ke file JSON
-with open(model_name+'.json', 'w') as json_file:
-    json.dump(model_performance, json_file, indent=4)
-
-
 # Simpan model
 model_filename = "BiGRUFFXANB.keras"
 model.save(model_filename)
@@ -117,43 +130,54 @@ plt.xlabel('Tanggal')
 plt.ylabel('Kecepatan Angin maksimum')
 plt.title('Prediksi vs Data Aktual Kecepatan Angin maksimum')
 plt.legend()
-plt.savefig("hasil_prediksi_5daysinput_"+model_name+".jpeg", format='jpeg', dpi=1000)
+plt.savefig("hasil_prediksi_5daysinput.jpeg", format='jpeg', dpi=1000)
 plt.show()
 
 
+inputan_hari_sebelumnya = Y_test[-timeseries:]
+forecasted = []
+for _ in range(91):
+    current_data = inputan_hari_sebelumnya
+    future_predictions = model.predict([current_data])
+    inputan_hari_sebelumnya.pop(0)
+    inputan_hari_sebelumnya.append(future_predictions)
+    forecasted.append(future_predictions)
 
-def predict_wind_speed_5days(model, scaler, input_data):
-    # Menambah dimensi agar sesuai dengan format yang diharapkan oleh scaler.transform()
-    input_data_reshaped = np.array(input_data).reshape(timeseries, 1)  # Ubah dimensi input menjadi (5, 1)
-    # Menskalakan input data
-    input_scaled = scaler.transform(input_data_reshaped)
-    # Menambah dimensi untuk sesuai dengan bentuk input model
-    input_reshaped = np.reshape(input_scaled, (1, timeseries, 1))
-    # Melakukan prediksi
-    # print(input_reshaped)
-    prediction_scaled = model.predict(input_reshaped)
-    # Membalikkan skala hasil prediksi ke skala aslinya
-    prediction = scaler.inverse_transform(prediction_scaled)
-    return prediction[0, 0]
+for i in range(len(forecasted)):
+    forecasted[i] = scaler.inverse_transform(forecasted[i])
 
-# Contoh penggunaan: memprediksi kecepatan angin maksimum untuk hari berikutnya berdasarkan 5 hari sebelumnya
-inputan_kecepatan = scaler.inverse_transform(Y_test[-(timeseries):])
-kecepatan_sebelumnya = []
-for i in range (len(inputan_kecepatan)):
-    kecepatan_sebelumnya.append(inputan_kecepatan[i][0])
+# def predict_wind_speed_5days(model, scaler, input_data):
+#     # Menambah dimensi agar sesuai dengan format yang diharapkan oleh scaler.transform()
+#     input_data_reshaped = np.array(input_data).reshape(timeseries, 1)  # Ubah dimensi input menjadi (5, 1)
+#     # Menskalakan input data
+#     input_scaled = scaler.transform(input_data_reshaped)
+#     # Menambah dimensi untuk sesuai dengan bentuk input model
+#     input_reshaped = np.reshape(input_scaled, (1, timeseries, 1))
+#     # Melakukan prediksi
+#     print(input_reshaped)
+#     prediction_scaled = model.predict(input_reshaped)
+#     # Membalikkan skala hasil prediksi ke skala aslinya
+#     prediction = scaler.inverse_transform(prediction_scaled)
+#     return prediction[0, 0]
+
+# # Contoh penggunaan: memprediksi kecepatan angin maksimum untuk hari berikutnya berdasarkan 5 hari sebelumnya
+# inputan_kecepatan = scaler.inverse_transform(Y_test[-(timeseries):])
+# kecepatan_sebelumnya = []
+# for i in range (len(inputan_kecepatan)):
+#     kecepatan_sebelumnya.append(inputan_kecepatan[i][0])
 # print(kecepatan_sebelumnya)
 
-forecasted = []
-for i in range(90):
-    input_x = np.array(kecepatan_sebelumnya).reshape(-1, 1)
-    prediction = predict_wind_speed_5days(model, scaler, input_x)
-    forecasted.append(prediction)
-    kecepatan_sebelumnya.pop(0)
-    kecepatan_sebelumnya.append(prediction)
+# forecasted = []
+# for i in range(90):
+#     input_x = np.array(kecepatan_sebelumnya).reshape(-1, 1)
+#     prediction = predict_wind_speed_5days(model, scaler, input_x)
+#     forecasted.append(prediction)
+#     kecepatan_sebelumnya.pop(0)
+#     kecepatan_sebelumnya.append(prediction)
 
 
 # Plot data aktual vs prediksi
-plt.figure(figsize=(10,12))
+plt.figure(figsize=(10,6))
 
 # Plot data aktual
 plt.plot(data.index[train_size:train_size+len(test_predict)], test_predict.flatten(), label='Data Predicition - Testing')
@@ -170,7 +194,6 @@ plt.title('Prediksi Kecepatan Angin Maksimum Selama 5 Hari')
 # Tampilkan legenda dan grid
 plt.legend()
 plt.grid(True)
-plt.savefig("forecasting_"+model_name+'.jpeg', format='jpeg', dpi=1000)
 
 # Tampilkan plot
 plt.show()
