@@ -29,13 +29,13 @@ export default function Navbar() {
           <div className="flex lg:gap-8">
             <Link
               to={"/anambas"}
-              className="px-8 py-3 text-white-1 font-medium text-base"
+              className="px-8 py-3 border border-transparent rounded-md hover:border-dark-1 transition-all duration-300 text-white-1 font-medium text-base"
             >
               Anambas
             </Link>
             <Link
               to={"/tanjungpinang"}
-              className="px-8 py-3 text-white-1 font-medium text-base"
+              className="px-8 py-3 border border-transparent rounded-md hover:border-dark-1 transition-all duration-300 text-white-1 font-medium text-base"
             >
               Tanjungpinang
             </Link>
