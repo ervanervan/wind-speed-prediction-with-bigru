@@ -60,7 +60,9 @@ const ReusableTable = ({ headers, data, type, isPredict, isNewData }) => {
                     key={"predicted" + rowIndex}
                     className="px-4 py-2 border-b border-dark-border text-base text-white-2"
                   >
-                    {row.predicted}
+                    {typeof row.predicted == "number"
+                      ? row.predicted.toFixed(3)
+                      : row.predicted}
                   </td>
                 )}
                 {isNewData && (

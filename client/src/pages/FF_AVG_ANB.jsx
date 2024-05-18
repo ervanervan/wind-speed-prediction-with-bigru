@@ -1,28 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import IconData from "../assets/icons/IconData";
 import TabsData from "../components/TabsData";
 import AllData from "../components/AllData";
 import PredictPastData from "../components/PredictPastData";
 import PredictNewData from "../components/PredictNewData";
+import axios from "axios";
 
 const FF_AVG_ANB = () => {
+  const [data, setData] = useState([]);
+  const [newData, setNewData] = useState([]);
+  const [modelPerformance, setModelPerformance] = useState({});
+
   const tabs = [
     {
       label: "All Data",
       icon: IconData,
-      content: <AllData />,
+      content: <AllData type={"ff_avg"} data={data ? data : []} />,
     },
     {
       label: "Predict Past Data",
       icon: IconData,
-      content: <PredictPastData />,
+      content: (
+        <PredictPastData
+          type={"ff_avg"}
+          model={modelPerformance}
+          data={data ? data : []}
+        />
+      ),
     },
     {
       label: "Predict New Data",
       icon: IconData,
-      content: <PredictNewData />,
+      content: <PredictNewData data={newData ? newData : []} />,
     },
   ];
+
+  useEffect(() => {
+    async function getData() {
+      const response = await axios.get("http://localhost:5000/ff-avg-anb");
+      const responseOriginal = await axios.get(
+        "http://localhost:5000/ff-avg-anb-original"
+      );
+
+      const responseModelPerformance = await axios.get(
+        "http://localhost:5000/ff-avg-anb-performance"
+      );
+
+      // console.log(response.data);
+      const original = responseOriginal.data;
+      const predicted = response.data.predicted;
+
+      original.map((item, idx) => {
+        if (idx < 5) {
+          item.predicted = "";
+        } else {
+          item.predicted = predicted[idx - 5];
+        }
+      });
+
+      setData(original);
+      setModelPerformance(responseModelPerformance.data);
+    }
+
+    async function getNewData() {
+      const response = await axios.get(
+        "http://localhost:5000/ff-avg-anb-forcasting"
+      );
+      setNewData(response.data.predicted);
+    }
+    getData();
+    getNewData();
+  }, []);
 
   return (
     <>

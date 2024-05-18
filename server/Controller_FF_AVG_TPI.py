@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 
 # Mengimpor data
-url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_x.csv'
+url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_harian_tanjungpinang_ff_avg.csv'
 data = pd.read_csv(url)
-data_ff_x_anb = data.to_json(orient='records', indent=4)
+data_ff_avg_tpi = data.to_json(orient='records', indent=4)
 
 # Mengonversi kolom 'Tanggal' ke tipe datetime
 data['Tanggal'] = pd.to_datetime(data['Tanggal'], format='%d-%m-%Y')
@@ -41,7 +41,7 @@ timeseries = 5
 X, Y = create_dataset(data_scaled, timeseries)
 # X= np.reshape(Y, (Y.shape[0], timeseries, 1))
 X = np.reshape(X, (X.shape[0], timeseries, 1))
-X_data_ff_x_anb = X
+X_data_ff_avg_tpi = X
 
 # Membagi data menjadi 70% training dan 30% testing
 train_size = int(len(X) * 0.7)
@@ -49,11 +49,11 @@ test_size = len(X) - train_size
 X_train, X_test = X[:train_size], X[train_size:]
 Y_train, Y_test = Y[:train_size], Y[train_size:]
 
-modelFileName= 'BiGRUFFXANB.keras'
+modelFileName= 'BiGRUFFAVGTPI.keras'
 model = tf.keras.models.load_model(modelFileName)
 
 
-def predict_ff_x_anb( input_data):
+def predict_ff_avg_tpi( input_data):
     # Menambah dimensi agar sesuai dengan format yang diharapkan oleh scaler.transform()
     # input_data_reshaped = np.array(input_data).reshape(timeseries, 1)  # Ubah dimensi input menjadi (5, 1)
     # # Menskalakan input data
@@ -91,7 +91,7 @@ Y_test = np.reshape(Y_test, (Y_test.shape[0], 1))
 inputan_kecepatan = scaler.inverse_transform(Y_test[-(timeseries):])
 
 
-def predict_forcasting_ff_x_anb():
+def predict_forcasting_ff_avg_tpi():
     kecepatan_sebelumnya = []
     for i in range (len(inputan_kecepatan)):
         kecepatan_sebelumnya.append(inputan_kecepatan[i][0])

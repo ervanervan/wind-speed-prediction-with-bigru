@@ -12,8 +12,8 @@ from tensorflow.keras.layers import Dense, GRU, Bidirectional
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 # Mengimpor data
-# Anambas X
-url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_x.csv'
+# Anambas AVG
+url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_avg.csv'
 data = pd.read_csv(url)
 
 # Mengonversi kolom 'Tanggal' ke tipe datetime
@@ -65,7 +65,7 @@ def trainingModel(model):
 
 history = trainingModel(model)
 
-model_name = "Bidirectional_GRU_FF_X_ANAMBAS"
+model_name = "Bidirectional_GRU_FF_AVG_ANAMBAS"
 
 # Plot training & validation loss values
 plt.figure(figsize=(10, 6))
@@ -111,7 +111,7 @@ model_performance = {
 with open(model_name+'.json', 'w') as json_file:
     json.dump(model_performance, json_file, indent=4)
 
-model_filename = "BiGRUFFXANB.keras"
+model_filename = "BiGRUFFAVGANB.keras"
 model.save(model_filename)
 
 plt.figure(figsize=(10, 6))
@@ -120,8 +120,8 @@ plt.plot(data.index[:train_size], train_predict.flatten(), label='Prediksi - Tra
 plt.plot(data.index[train_size:train_size+len(actual_test)], actual_test.flatten(), label='Data Aktual - Testing')
 plt.plot(data.index[train_size:train_size+len(test_predict)], test_predict.flatten(), label='Prediksi - Testing')
 plt.xlabel('Tanggal')
-plt.ylabel('Kecepatan Angin Maksimum')
-plt.title('Prediksi vs Data Aktual Kecepatan Angin Maksimum')
+plt.ylabel('Kecepatan Angin Rata-Rata')
+plt.title('Prediksi vs Data Aktual Kecepatan Angin Rata-Rata')
 plt.legend()
 plt.savefig("hasil_prediksi_90days_"+model_name+".jpeg", format='jpeg', dpi=1000)
 plt.show()
@@ -151,7 +151,7 @@ forecasted_dates = pd.date_range(start=data.index[train_size+len(test_predict)],
 plt.plot(forecasted_dates, forecasted, label='Prediksi Kecepatan Angin')
 plt.xlabel('Tanggal')
 plt.ylabel('Kecepatan Angin')
-plt.title('Prediksi Kecepatan Angin Maksimum Selama 90 Hari')
+plt.title('Prediksi Kecepatan Angin Rata-Rata Selama 90 Hari')
 plt.legend()
 plt.grid(True)
 plt.savefig("forecasting_"+model_name+'.jpeg', format='jpeg', dpi=1000)

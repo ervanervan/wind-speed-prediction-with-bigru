@@ -1,0 +1,5 @@
+{
+    "MAPE": 34.36920938870958,
+    "AKURASI": 65.63079061129042,
+    "model_name": "Bidirectional_GRU_FF_AVG_TANJUNGPINANG"
+}

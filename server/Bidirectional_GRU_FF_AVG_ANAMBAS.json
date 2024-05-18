@@ -1,0 +1,5 @@
+{
+    "MAPE": Infinity,
+    "AKURASI": -Infinity,
+    "model_name": "Bidirectional_GRU_FF_AVG_ANAMBAS"
+}

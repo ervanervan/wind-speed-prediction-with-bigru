@@ -14,13 +14,17 @@ const FF_X_ANB = () => {
     {
       label: "All Data",
       icon: IconData,
-      content: <AllData data={data ? data : []} />,
+      content: <AllData type={"ff_x"} data={data ? data : []} />,
     },
     {
       label: "Predict Past Data",
       icon: IconData,
       content: (
-        <PredictPastData model={modelPerformance} data={data ? data : []} />
+        <PredictPastData
+          type={"ff_x"}
+          model={modelPerformance}
+          data={data ? data : []}
+        />
       ),
     },
     {
