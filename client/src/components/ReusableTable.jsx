@@ -1,10 +1,12 @@
 import React from "react";
 
 const ReusableTable = ({ headers, data, type, isPredict, isNewData }) => {
+  const isLoading = !data || data.length === 0;
+
   return (
     <div className="overflow-x-auto lg:overflow-auto">
       {/* Loading State */}
-      {!data ? (
+      {isLoading ? (
         <div className="w-full md:max-w-2xl flex justify-center items-center h-64">
           <p className="text-lg font-medium text-white-2">Loading...</p>
         </div>
