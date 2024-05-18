@@ -10,6 +10,7 @@ const FF_X_ANB = () => {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState([]);
   const [modelPerformance, setModelPerformance] = useState({});
+
   const tabs = [
     {
       label: "All Data",
