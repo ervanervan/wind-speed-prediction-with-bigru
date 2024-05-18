@@ -9,7 +9,7 @@ const Tabs = ({ tabs }) => {
         {tabs.map((tab, index) => (
           <button
             key={index}
-            className={`px-7 py-2 font-medium shrink-0 text-xl focus:outline-none ${
+            className={`px-7 py-2 font-medium shrink-0 text-xl border border-transparent rounded-lg hover:border-dark-1 transition-all duration-300 ${
               activeTab === index
                 ? "bg-white-1 text-black-1 rounded-lg"
                 : "text-white-1"
