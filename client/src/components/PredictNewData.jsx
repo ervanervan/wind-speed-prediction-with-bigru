@@ -1,7 +1,7 @@
 import React from "react";
 import ReusableTable from "./ReusableTable";
 
-export default function PredictNewData({ data }) {
+export default function PredictNewData({ data, image }) {
   const headers = ["No", "Data Prediction"];
   const data_angin = data;
 
