@@ -5,6 +5,7 @@ import AllData from "../components/AllData";
 import PredictPastData from "../components/PredictPastData";
 import PredictNewData from "../components/PredictNewData";
 import axios from "axios";
+import imgForcast from "../assets/images/forecasting_Bidirectional_GRU_FF_X_TANJUNGPINANG.jpeg";
 
 const FF_X_TPI = () => {
   const [data, setData] = useState([]);
@@ -31,7 +32,9 @@ const FF_X_TPI = () => {
     {
       label: "Predict New Data",
       icon: IconData,
-      content: <PredictNewData data={newData ? newData : []} />,
+      content: (
+        <PredictNewData image={imgForcast} data={newData ? newData : []} />
+      ),
     },
   ];
 

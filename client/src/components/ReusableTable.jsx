@@ -4,14 +4,14 @@ const ReusableTable = ({ headers, data, type, isPredict, isNewData }) => {
   const isLoading = !data || data.length === 0;
 
   return (
-    <div className="overflow-x-auto lg:overflow-auto">
+    <div className="overflow-x-auto lg:overflow-x-visible">
       {/* Loading State */}
       {isLoading ? (
         <div className="w-full md:max-w-2xl flex justify-center items-center h-64">
           <p className="text-lg font-medium text-white-2">Loading...</p>
         </div>
       ) : (
-        <table className="w-full md:max-w-2xl">
+        <table className="w-full md:max-w-[43rem]">
           <thead>
             <tr>
               {headers.map((header, index) => (

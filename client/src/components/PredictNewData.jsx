@@ -7,20 +7,20 @@ export default function PredictNewData({ data, image }) {
 
   return (
     <div className="container mx-auto">
-      <div className="flex justify-between">
+      <div className="flex flex-col gap-10">
         <ReusableTable
           isNewData={true}
           isPredict={false}
           headers={headers}
           data={data_angin}
         />
-        {/* <div>
+        <div className="lg:w-full md:h-[36rem] lg:h-[44rem] overflow-hidden bg-transparent">
           <img
-            className="w-[55%]"
-            src="/forecasting_Bidirectional_GRU_FF_X_ANAMBAS.jpeg"
+            className="w-full h-full object-fill object-center"
+            src={image}
             alt=""
           />
-        </div> */}
+        </div>
       </div>
     </div>
   );
