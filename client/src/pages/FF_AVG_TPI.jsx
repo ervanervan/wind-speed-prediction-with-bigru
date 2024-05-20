@@ -5,6 +5,7 @@ import PredictNewData from "../components/PredictNewData";
 import TabsData from "../components/TabsData";
 import IconData from "../assets/icons/IconData";
 import axios from "axios";
+import imgForcast from "../assets/images/forecasting_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
 
 const FF_AVG_TPI = () => {
   const [data, setData] = useState([]);
@@ -31,7 +32,9 @@ const FF_AVG_TPI = () => {
     {
       label: "Predict New Data",
       icon: IconData,
-      content: <PredictNewData data={newData ? newData : []} />,
+      content: (
+        <PredictNewData image={imgForcast} data={newData ? newData : []} />
+      ),
     },
   ];
 
