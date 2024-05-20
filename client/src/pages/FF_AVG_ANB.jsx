@@ -5,6 +5,7 @@ import AllData from "../components/AllData";
 import PredictPastData from "../components/PredictPastData";
 import PredictNewData from "../components/PredictNewData";
 import axios from "axios";
+import imgForcast from "../assets/images/forecasting_Bidirectional_GRU_FF_AVG_ANAMBAS.jpeg";
 
 const FF_AVG_ANB = () => {
   const [data, setData] = useState([]);
@@ -31,7 +32,9 @@ const FF_AVG_ANB = () => {
     {
       label: "Predict New Data",
       icon: IconData,
-      content: <PredictNewData data={newData ? newData : []} />,
+      content: (
+        <PredictNewData image={imgForcast} data={newData ? newData : []} />
+      ),
     },
   ];
 
