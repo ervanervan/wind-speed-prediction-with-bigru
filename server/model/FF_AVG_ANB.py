@@ -13,7 +13,8 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 # Mengimpor data
 # Anambas AVG
-url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_avg.csv'
+# url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_avg.csv'
+url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_avg_1.csv'
 data = pd.read_csv(url)
 
 # Mengonversi kolom 'Tanggal' ke tipe datetime
@@ -65,7 +66,7 @@ def trainingModel(model):
 
 history = trainingModel(model)
 
-model_name = "Bidirectional_GRU_FF_AVG_ANAMBAS"
+model_name = "Bidirectional_GRU_FF_AVG_ANAMBAS1"
 
 # Plot training & validation loss values
 plt.figure(figsize=(10, 6))
@@ -111,7 +112,7 @@ model_performance = {
 with open(model_name+'.json', 'w') as json_file:
     json.dump(model_performance, json_file, indent=4)
 
-model_filename = "BiGRUFFAVGANB.keras"
+model_filename = "BiGRUFFAVGANB1.keras"
 model.save(model_filename)
 
 plt.figure(figsize=(10, 6))

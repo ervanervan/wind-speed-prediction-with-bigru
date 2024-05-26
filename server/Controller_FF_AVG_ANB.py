@@ -8,7 +8,9 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 
 # Mengimpor data
-url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_avg.csv'
+# url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_avg.csv'
+url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_avg_1.csv'
+
 data = pd.read_csv(url)
 data_ff_avg_anb = data.to_json(orient='records', indent=4)
 
@@ -49,7 +51,7 @@ test_size = len(X) - train_size
 X_train, X_test = X[:train_size], X[train_size:]
 Y_train, Y_test = Y[:train_size], Y[train_size:]
 
-modelFileName= 'BiGRUFFAVGANB.keras'
+modelFileName= 'BiGRUFFAVGANB1.keras'
 model = tf.keras.models.load_model(modelFileName)
 
 
