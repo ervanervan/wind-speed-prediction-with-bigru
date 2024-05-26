@@ -5,7 +5,7 @@ import AllData from "../components/AllData";
 import PredictPastData from "../components/PredictPastData";
 import PredictNewData from "../components/PredictNewData";
 import axios from "axios";
-import imgForcast from "../assets/images/forecasting_Bidirectional_GRU_FF_AVG_ANAMBAS.jpeg";
+import imgForcast from "../assets/images/forecasting_Bidirectional_GRU_FF_AVG_ANAMBAS1.jpeg";
 
 const FF_AVG_ANB = () => {
   const [data, setData] = useState([]);
