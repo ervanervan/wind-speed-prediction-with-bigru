@@ -13,7 +13,6 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 # Mengimpor data
 # Anambas AVG
-# url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_avg.csv'
 url = 'https://raw.githubusercontent.com/ervanervan/dataset-skripsi/main/laporan_iklim_anambas_ff_avg_1.csv'
 data = pd.read_csv(url)
 
@@ -51,8 +50,8 @@ Y_train, Y_test = Y[:train_size], Y[train_size:]
 # Modifikasi arsitektur model
 def createModel():
     model = Sequential()
-    model.add(Bidirectional(GRU(50, activation='tanh', return_sequences=False), input_shape=(timeseries, 1)))
-    model.add(Dense(1, activation='sigmoid'))
+    model.add(Bidirectional(GRU(75, activation='tanh', return_sequences=False), input_shape=(timeseries, 1)))
+    model.add(Dense(1))
     model.summary()
     model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mae'])
     return model
@@ -61,7 +60,7 @@ model = createModel()
 
 # Melatih model
 def trainingModel(model):
-    history = model.fit(X_train, Y_train, epochs=100, batch_size=16, verbose=1, validation_split=0.2)
+    history = model.fit(X_train, Y_train, epochs=80, batch_size=64, validation_split=0.2)
     return history
 
 history = trainingModel(model)
@@ -84,6 +83,7 @@ plt.show()
 train_predict = model.predict(X_train)
 test_predict = model.predict(X_test)
 
+# Inverse transform predictions and actual values to original scale
 train_predict = scaler.inverse_transform(train_predict)
 test_predict = scaler.inverse_transform(test_predict)
 Y_train = np.reshape(Y_train, (Y_train.shape[0], 1))
@@ -91,6 +91,7 @@ Y_test = np.reshape(Y_test, (Y_test.shape[0], 1))
 actual_train = scaler.inverse_transform(Y_train)
 actual_test = scaler.inverse_transform(Y_test)
 
+# Calculate metrics
 mse = mean_squared_error(actual_test, test_predict)
 rmse = np.sqrt(mse)
 mae = mean_absolute_error(actual_test, test_predict)

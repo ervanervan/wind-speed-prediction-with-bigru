@@ -46,7 +46,7 @@ const ReusableTable = ({ headers, data, type, isPredict, isNewData }) => {
                     key={"ff_x" + rowIndex}
                     className="px-4 py-2 border-b border-dark-border text-base text-white-2"
                   >
-                    {row.ff_x}
+                    {row.ff_x} m/s
                   </td>
                 )}
                 {type === "ff_avg" && (
@@ -54,7 +54,7 @@ const ReusableTable = ({ headers, data, type, isPredict, isNewData }) => {
                     key={"ff_avg" + rowIndex}
                     className="px-4 py-2 border-b border-dark-border text-base text-white-2"
                   >
-                    {row.ff_avg}
+                    {row.ff_avg} m/s
                   </td>
                 )}
                 {isPredict && (
@@ -72,7 +72,7 @@ const ReusableTable = ({ headers, data, type, isPredict, isNewData }) => {
                     key={"new data" + rowIndex}
                     className="px-4 py-2 border-b border-dark-border text-base text-white-2"
                   >
-                    {row}
+                    {row.toFixed(3)} m/s
                   </td>
                 )}
               </tr>
