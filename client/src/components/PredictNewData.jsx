@@ -16,7 +16,7 @@ export default function PredictNewData({ data, image }) {
         />
         <div className="lg:w-full md:h-[36rem] lg:h-[44rem] overflow-hidden bg-transparent">
           <img
-            className="w-full h-full object-fill object-center"
+            className="w-full h-full object-fill object-center rounded-md"
             src={image}
             alt=""
           />

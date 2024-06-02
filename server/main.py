@@ -71,7 +71,7 @@ def ff_avg_anb_forcasting():
 def ff_avg_anb_performance():
     if request.method == 'GET':
         # Path ke file JSON
-        file_path = 'Bidirectional_GRU_FF_AVG_ANAMBAS1.json'
+        file_path = 'Bidirectional_GRU_FF_AVG_ANAMBAS.json'
         
         # Membaca isi file JSON
         with open(file_path, 'r') as file:

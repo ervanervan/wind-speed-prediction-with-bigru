@@ -33,7 +33,7 @@ const ReusableTable = ({ headers, data, type, isPredict, isNewData }) => {
                 >
                   {rowIndex + 1}
                 </td>
-                {!isNewData && (
+                {!isNewData && type != "bobot" && type != "bias" && (
                   <td
                     key={"tgl" + rowIndex}
                     className="px-4 py-2 border-b border-dark-border text-base text-white-2"
@@ -57,6 +57,22 @@ const ReusableTable = ({ headers, data, type, isPredict, isNewData }) => {
                     {row.ff_avg} m/s
                   </td>
                 )}
+                {type === "bobot" && (
+                  <td
+                    key={"bobot" + rowIndex}
+                    className="px-4 py-2 border-b border-dark-border text-base text-white-2"
+                  >
+                    {row}
+                  </td>
+                )}
+                {type === "bias" && (
+                  <td
+                    key={"bias" + rowIndex}
+                    className="px-4 py-2 border-b border-dark-border text-base text-white-2"
+                  >
+                    {row}
+                  </td>
+                )}
                 {isPredict && (
                   <td
                     key={"predicted" + rowIndex}
@@ -64,7 +80,8 @@ const ReusableTable = ({ headers, data, type, isPredict, isNewData }) => {
                   >
                     {typeof row.predicted == "number"
                       ? row.predicted.toFixed(3)
-                      : row.predicted}
+                      : row.predicted}{" "}
+                    m/s
                   </td>
                 )}
                 {isNewData && (

@@ -4,7 +4,6 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
-import matplotlib.pyplot as plt
 import tensorflow as tf
 
 # Mengimpor data
@@ -53,19 +52,7 @@ modelFileName= 'BiGRUFFXANB.keras'
 model = tf.keras.models.load_model(modelFileName)
 
 
-def predict_ff_x_anb( input_data):
-    # Menambah dimensi agar sesuai dengan format yang diharapkan oleh scaler.transform()
-    # input_data_reshaped = np.array(input_data).reshape(timeseries, 1)  # Ubah dimensi input menjadi (5, 1)
-    # # Menskalakan input data
-    # input_scaled = scaler.transform(input_data_reshaped)
-    # # Menambah dimensi untuk sesuai dengan bentuk input model
-    # input_reshaped = np.reshape(input_scaled, (1, timeseries, 1))
-    # # Melakukan prediksi
-    # # print(input_reshaped)
-    # prediction_scaled = model.predict(input_reshaped)
-    # # Membalikkan skala hasil prediksi ke skala aslinya
-    # prediction = scaler.inverse_transform(prediction_scaled)
-    # return prediction[0, 0]
+def predict_ff_x_anb(input_data):
     prediction = model.predict(input_data)
     result = scaler.inverse_transform(prediction).flatten()
     data = []
@@ -74,19 +61,13 @@ def predict_ff_x_anb( input_data):
     return data
 
 def predict_wind_speed_90days(model, scaler, input_data):
-    # Menambah dimensi agar sesuai dengan format yang diharapkan oleh scaler.transform()
     input_data_reshaped = np.array(input_data).reshape(timeseries, 1)  # Ubah dimensi input menjadi (5, 1)
-    # Menskalakan input data
     input_scaled = scaler.transform(input_data_reshaped)
-    # Menambah dimensi untuk sesuai dengan bentuk input model
     input_reshaped = np.reshape(input_scaled, (1, timeseries, 1))
-    # Melakukan prediksi
-    # print(input_reshaped)
     prediction_scaled = model.predict(input_reshaped)
-    # Membalikkan skala hasil prediksi ke skala aslinya
     prediction = scaler.inverse_transform(prediction_scaled)
     return prediction[0, 0]
-# print(Y_test[-(timeseries):])
+
 Y_test = np.reshape(Y_test, (Y_test.shape[0], 1))
 inputan_kecepatan = scaler.inverse_transform(Y_test[-(timeseries):])
 
@@ -106,7 +87,4 @@ def predict_forcasting_ff_x_anb():
         kecepatan_sebelumnya.pop(0)
         kecepatan_sebelumnya.append(float(prediction))
 
-
     return forecasted
-    # return forecasted
-

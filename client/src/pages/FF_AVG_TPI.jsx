@@ -5,12 +5,19 @@ import PredictNewData from "../components/PredictNewData";
 import TabsData from "../components/TabsData";
 import IconData from "../assets/icons/IconData";
 import axios from "axios";
-import imgForcast from "../assets/images/forecasting_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
+import LossAVGANB from "../assets/images/Loss_Plot_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
+import MetricAVGANB from "../assets/images/RMSE_and_MAPE_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
+import ActPreAVGANB from "../assets/images/Actual_and_Prediction_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
+import ForcastAVGANB from "../assets/images/forecasting_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
+import AllBobot from "../components/AllBobot";
+import AllBias from "../components/AllBias";
 
 const FF_AVG_TPI = () => {
   const [data, setData] = useState([]);
   const [newData, setNewData] = useState([]);
   const [modelPerformance, setModelPerformance] = useState({});
+  const [bobot, setBobot] = useState([]);
+  const [bias, setBias] = useState([]);
 
   const tabs = [
     {
@@ -23,6 +30,7 @@ const FF_AVG_TPI = () => {
       icon: IconData,
       content: (
         <PredictPastData
+          images={[LossAVGANB, MetricAVGANB, ActPreAVGANB]}
           type={"ff_avg"}
           model={modelPerformance}
           data={data ? data : []}
@@ -33,8 +41,18 @@ const FF_AVG_TPI = () => {
       label: "Predict New Data",
       icon: IconData,
       content: (
-        <PredictNewData image={imgForcast} data={newData ? newData : []} />
+        <PredictNewData image={ForcastAVGANB} data={newData ? newData : []} />
       ),
+    },
+    {
+      label: "All Bobot",
+      icon: IconData,
+      content: <AllBobot type="bobot" data={bobot ? bobot : []} />,
+    },
+    {
+      label: "All Bias",
+      icon: IconData,
+      content: <AllBias type="bias" data={bias ? bias : []} />,
     },
   ];
 
@@ -52,6 +70,8 @@ const FF_AVG_TPI = () => {
       // console.log(response.data);
       const original = responseOriginal.data;
       const predicted = response.data.predicted;
+      const bobotData = responseModelPerformance.data.Bobot;
+      const biasData = responseModelPerformance.data.Bias;
 
       original.map((item, idx) => {
         if (idx < 5) {
@@ -63,6 +83,8 @@ const FF_AVG_TPI = () => {
 
       setData(original);
       setModelPerformance(responseModelPerformance.data);
+      setBobot(bobotData);
+      setBias(biasData);
     }
 
     async function getNewData() {
@@ -79,7 +101,7 @@ const FF_AVG_TPI = () => {
     <>
       <div className="px-5 py-4">
         <h1 className="text-3xl text-white-1 font-semibold">
-          Kecepatan Angin Rata-rata
+          Kecepatan Angin Rata-rata (m/s)
         </h1>
         <TabsData tabs={tabs} />
       </div>
