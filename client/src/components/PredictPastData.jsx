@@ -41,9 +41,6 @@ export default function PredictPastData({ data, model, type, images }) {
             %
           </span>
         </div>
-        {images?.map((item, idx) => (
-          <img key={idx} src={item} alt="" className="my-7 rounded-md" />
-        ))}
       </div>
 
       <ReusableTable
@@ -52,6 +49,9 @@ export default function PredictPastData({ data, model, type, images }) {
         headers={headers}
         data={data_angin}
       />
+      {images?.map((item, idx) => (
+        <img key={idx} src={item} alt="" className="my-7 rounded-md" />
+      ))}
     </div>
   );
 }
