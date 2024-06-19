@@ -9,8 +9,6 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, GRU, Bidirectional
-from tensorflow.keras.callbacks import Callback
-from sklearn.metrics import mean_squared_error
 
 # Mengimpor data
 # Anambas AVG
@@ -48,32 +46,12 @@ test_size = len(X) - train_size
 X_train, X_test = X[:train_size], X[train_size:]
 Y_train, Y_test = Y[:train_size], Y[train_size:]
 
-class PerformanceHistory(Callback):
-    def __init__(self):
-        self.rmse_train = []
-        self.rmse_val = []
-        self.mape_train = []
-        self.mape_val = []
-    
-    def on_epoch_end(self, epoch, logs=None):
-        train_rmse = np.sqrt(logs['loss'])
-        val_rmse = np.sqrt(logs['val_loss'])
-        train_mape = logs['mae'] * 100
-        val_mape = logs['val_mae'] * 100
-        
-        # Menyimpan nilai RMSE dan MAPE di list
-        self.rmse_train.append(train_rmse)
-        self.rmse_val.append(val_rmse)
-        self.mape_train.append(train_mape)
-        self.mape_val.append(val_mape)
-
 
 # Modifikasi arsitektur model
 def createModel():
     model = Sequential()
-    model.add(Bidirectional(GRU(75, activation='tanh', return_sequences=True), input_shape=(timeseries, 1)))
-    model.add(Bidirectional(GRU(30, activation='tanh', return_sequences=True)))
-    model.add(Bidirectional(GRU(30, activation='tanh', return_sequences=False)))
+    model.add(Bidirectional(GRU(64, activation='tanh', return_sequences=True), input_shape=(timeseries, 1)))
+    model.add(Bidirectional(GRU(32, activation='tanh')))
     model.add(Dense(1, activation='sigmoid'))
     model.summary()
     model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mae'])
@@ -83,11 +61,10 @@ model = createModel()
 
 # Melatih model
 def trainingModel(model):
-    callback_performance = PerformanceHistory()
-    history = model.fit(X_train, Y_train, epochs=80, batch_size=64, validation_split=0.2, callbacks=[callback_performance])
-    return history, callback_performance
+    history = model.fit(X_train, Y_train, epochs=250, batch_size=16, validation_split=0.2)
+    return history
 
-history, callback_performance = trainingModel(model)
+history = trainingModel(model)
 
 model_name = "Bidirectional_GRU_FF_AVG_ANAMBAS"
 
@@ -117,7 +94,7 @@ actual_test = scaler.inverse_transform(Y_test)
 
 # Fungsi untuk menghitung metrik evaluasi
 def calculate_metrics(actual, predicted):
-    mse = mean_squared_error(actual, predicted)
+    mse = np.mean((actual - predicted) ** 2)
     rmse = np.sqrt(mse)
     mape = np.mean(np.abs((actual - predicted) / actual)) * 100
     accuracy = 100 - mape
@@ -174,31 +151,6 @@ with open(model_name + '.json', 'w') as json_file:
 
 model_filename = "BiGRUFFAVGANB.keras"
 model.save(model_filename)
-
-# Plot RMSE dan MAPE
-plt.figure(figsize=(14, 7))
-
-# Plotting RMSE
-plt.subplot(1, 2, 1)
-plt.plot(callback_performance.rmse_train, label='Training RMSE')
-plt.plot(callback_performance.rmse_val, label='Validation RMSE')
-plt.title('Training and Validation RMSE')
-plt.xlabel('Epoch')
-plt.ylabel('RMSE')
-plt.legend()
-
-# Plotting MAPE
-plt.subplot(1, 2, 2)
-plt.plot(callback_performance.mape_train, label='Training MAPE')
-plt.plot(callback_performance.mape_val, label='Validation MAPE')
-plt.title('Training and Validation MAPE')
-plt.xlabel('Epoch')
-plt.ylabel('MAPE (%)')
-plt.savefig("RMSE_and_MAPE_"+model_name+".jpeg", format='jpeg', dpi=1000)
-plt.legend()
-
-plt.tight_layout()
-plt.show()
 
 plt.figure(figsize=(10, 6))
 plt.plot(data.index[:train_size], actual_train.flatten(), label='Data Aktual - Training')

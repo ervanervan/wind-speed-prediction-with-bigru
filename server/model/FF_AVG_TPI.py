@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, GRU, Bidirectional
-from sklearn.metrics import mean_squared_error
 
 # Mengimpor data
 # Tanjungpinang AVG
@@ -50,9 +49,8 @@ Y_train, Y_test = Y[:train_size], Y[train_size:]
 # Modifikasi arsitektur model
 def createModel():
     model = Sequential()
-    model.add(Bidirectional(GRU(75, activation='tanh', return_sequences=True), input_shape=(timeseries, 1)))
-    model.add(Bidirectional(GRU(30, activation='tanh', return_sequences=True)))
-    model.add(Bidirectional(GRU(30, activation='tanh', return_sequences=False)))
+    model.add(Bidirectional(GRU(64, activation='tanh', return_sequences=True), input_shape=(timeseries, 1)))
+    model.add(Bidirectional(GRU(32, activation='tanh')))
     model.add(Dense(1, activation='sigmoid'))
     model.summary()
     model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mae'])
@@ -62,7 +60,7 @@ model = createModel()
 
 # Melatih model
 def trainingModel(model):
-    history = model.fit(X_train, Y_train, epochs=80, batch_size=64, validation_split=0.2)
+    history = model.fit(X_train, Y_train, epochs=50, batch_size=16, validation_split=0.2)
     return history
 
 history = trainingModel(model)
@@ -94,7 +92,7 @@ actual_test = scaler.inverse_transform(Y_test)
 
 # Fungsi untuk menghitung metrik evaluasi
 def calculate_metrics(actual, predicted):
-    mse = mean_squared_error(actual, predicted)
+    mse = np.mean((actual - predicted) ** 2)
     rmse = np.sqrt(mse)
     mape = np.mean(np.abs((actual - predicted) / actual)) * 100
     accuracy = 100 - mape

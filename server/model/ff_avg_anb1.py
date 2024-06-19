@@ -81,94 +81,94 @@ def create_dataset(X, look_back=1):
 X_train, y_train = create_dataset(train_scaled, look_back)
 X_test, y_test = create_dataset(test_scaled, look_back)
 
-# print('X_train.shape: ', X_train.shape)
-# print('y_train.shape: ', y_train.shape)
-# print('X_test.shape: ', X_test.shape) 
-# print('y_test.shape: ', y_test.shape)
+print('X_train.shape: ', X_train.shape)
+print('y_train.shape: ', y_train.shape)
+print('X_test.shape: ', X_test.shape) 
+print('y_test.shape: ', y_test.shape)
 
 # Get shape of subset of test data
 # subset_shape = X_test[:33].shape
 # print('Shape of subset:', subset_shape)
 
-# Create Bidirectional GRU model
-def create_bidirectional_gru(units):
-    model = Sequential()
-    model.add(Bidirectional(GRU(units=units, activation='tanh', return_sequences=True), input_shape=(X_train.shape[1], X_train.shape[2])))
-    # model.add(Dropout(0.2))
-    model.add(Bidirectional(GRU(units=units, return_sequences=False)))
-    # model.add(Dropout(0.2))
-    model.add(Dense(units=1, activation='sigmoid'))
-    model.compile(optimizer='adam', loss='mse')
-    return model
+# # Create Bidirectional GRU model
+# def create_bidirectional_gru(units):
+#     model = Sequential()
+#     model.add(Bidirectional(GRU(units=units, activation='tanh', return_sequences=True), input_shape=(X_train.shape[1], X_train.shape[2])))
+#     # model.add(Dropout(0.2))
+#     model.add(Bidirectional(GRU(units=units, return_sequences=False)))
+#     # model.add(Dropout(0.2))
+#     model.add(Dense(units=1, activation='sigmoid'))
+#     model.compile(optimizer='adam', loss='mse')
+#     return model
 
-model_bidirectional_gru = create_bidirectional_gru(75)
+# model_bidirectional_gru = create_bidirectional_gru(75)
 
-# Fit Bidirectional GRU model
-def fit_model(model):
-    early_stop = EarlyStopping(monitor='val_loss', patience=10)
-    history = model.fit(X_train, y_train, epochs=50, validation_split=0.2, batch_size=32, shuffle=False, callbacks=[early_stop])
-    return history
+# # Fit Bidirectional GRU model
+# def fit_model(model):
+#     early_stop = EarlyStopping(monitor='val_loss', patience=10)
+#     history = model.fit(X_train, y_train, epochs=50, validation_split=0.2, batch_size=32, shuffle=False, callbacks=[early_stop])
+#     return history
 
-history_bidirectional_gru = fit_model(model_bidirectional_gru)
+# history_bidirectional_gru = fit_model(model_bidirectional_gru)
 
-# Transform data back to original data space
-y_test = scaler.inverse_transform(y_test)
-y_train = scaler.inverse_transform(y_train)
+# # Transform data back to original data space
+# y_test = scaler.inverse_transform(y_test)
+# y_train = scaler.inverse_transform(y_train)
 
-def plot_loss (history, model_name):
-    plt.figure(figsize = (10, 6))
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('Model Train vs Validation Loss for ' + model_name)
-    plt.ylabel('Loss')
-    plt.xlabel('epoch')
-    plt.legend(['Train loss', 'Validation loss'], loc='upper right')
-    plt.grid(True)
-    plt.show()
+# def plot_loss (history, model_name):
+#     plt.figure(figsize = (10, 6))
+#     plt.plot(history.history['loss'])
+#     plt.plot(history.history['val_loss'])
+#     plt.title('Model Train vs Validation Loss for ' + model_name)
+#     plt.ylabel('Loss')
+#     plt.xlabel('epoch')
+#     plt.legend(['Train loss', 'Validation loss'], loc='upper right')
+#     plt.grid(True)
+#     plt.show()
  
-plot_loss (history_bidirectional_gru, 'Bidirectional GRU')
+# plot_loss (history_bidirectional_gru, 'Bidirectional GRU')
 
-# Make prediction
-def prediction(model):
-    prediction = model.predict(X_test)
-    prediction = scaler.inverse_transform(prediction)
-    return prediction
-prediction_bigru = prediction(model_bidirectional_gru)
+# # Make prediction
+# def prediction(model):
+#     prediction = model.predict(X_test)
+#     prediction = scaler.inverse_transform(prediction)
+#     return prediction
+# prediction_bigru = prediction(model_bidirectional_gru)
 
-# Plot test data vs prediction
-def plot_future(prediction, model_name, y_test):
-    plt.figure(figsize=(10, 6))
-    range_future = len(prediction)
-    plt.plot(np.arange(range_future), np.array(y_test), 
-             label='Test data')
-    plt.plot(np.arange(range_future), 
-             np.array(prediction),label='Prediction')
-    plt.title('Test data vs prediction for ' + model_name)
-    plt.legend(loc='upper left')
-    plt.xlabel('Time (day)')
-    plt.ylabel('Wind Speed (m/s)')
-    plt.grid(True)
-    plt.show()
+# # Plot test data vs prediction
+# def plot_future(prediction, model_name, y_test):
+#     plt.figure(figsize=(10, 6))
+#     range_future = len(prediction)
+#     plt.plot(np.arange(range_future), np.array(y_test), 
+#              label='Test data')
+#     plt.plot(np.arange(range_future), 
+#              np.array(prediction),label='Prediction')
+#     plt.title('Test data vs prediction for ' + model_name)
+#     plt.legend(loc='upper left')
+#     plt.xlabel('Time (day)')
+#     plt.ylabel('Wind Speed (m/s)')
+#     plt.grid(True)
+#     plt.show()
 
-plot_future(prediction_bigru, 'Bidirectional GRU', y_test)
+# plot_future(prediction_bigru, 'Bidirectional GRU', y_test)
 
 
-def evaluate_prediction(predictions, actual, model_name):
-    errors = predictions - actual
-    mse = np.square(errors).mean()
-    rmse = np.sqrt(mse)
-    mae = np.abs(errors).mean()
-    mape = np.mean(np.abs((actual - predictions) / actual)) * 100
-    accuracy = 1 - np.mean(np.abs(predictions - actual) / actual)
+# def evaluate_prediction(predictions, actual, model_name):
+#     errors = predictions - actual
+#     mse = np.square(errors).mean()
+#     rmse = np.sqrt(mse)
+#     mae = np.abs(errors).mean()
+#     mape = np.mean(np.abs((actual - predictions) / actual)) * 100
+#     accuracy = 1 - np.mean(np.abs(predictions - actual) / actual)
 
-    print(model_name + ':')
-    print('Mean Absolute Error: {:.4f}'.format(mae))
-    print('Root Mean Square Error: {:.4f}'.format(rmse))
-    print('Mean Absolute Percentage Error: {:.4f}%'.format(mape))  # Format persentase
-    print('Accuracy: {:.4f}%'.format(accuracy * 100))
-    print('')
+#     print(model_name + ':')
+#     print('Mean Absolute Error: {:.4f}'.format(mae))
+#     print('Root Mean Square Error: {:.4f}'.format(rmse))
+#     print('Mean Absolute Percentage Error: {:.4f}%'.format(mape))  # Format persentase
+#     print('Accuracy: {:.4f}%'.format(accuracy * 100))
+#     print('')
 
-evaluate_prediction(prediction_bigru, y_test, 'Bidirectional GRU')
+# evaluate_prediction(prediction_bigru, y_test, 'Bidirectional GRU')
 
 
 # import os
