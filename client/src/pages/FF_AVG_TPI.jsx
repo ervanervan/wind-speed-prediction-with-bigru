@@ -6,7 +6,6 @@ import TabsData from "../components/TabsData";
 import IconData from "../assets/icons/IconData";
 import axios from "axios";
 import LossAVGANB from "../assets/images/Loss_Plot_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
-import MetricAVGANB from "../assets/images/RMSE_and_MAPE_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
 import ActPreAVGANB from "../assets/images/Actual_and_Prediction_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
 import ForcastAVGANB from "../assets/images/forecasting_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
 import AllBobot from "../components/AllBobot";
@@ -30,7 +29,7 @@ const FF_AVG_TPI = () => {
       icon: IconData,
       content: (
         <PredictPastData
-          images={[LossAVGANB, MetricAVGANB, ActPreAVGANB]}
+          images={[LossAVGANB, ActPreAVGANB]}
           type={"ff_avg"}
           model={modelPerformance}
           data={data ? data : []}

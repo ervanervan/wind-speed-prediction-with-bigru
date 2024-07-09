@@ -60,7 +60,7 @@ model = createModel()
 
 # Melatih model
 def trainingModel(model):
-    history = model.fit(X_train, Y_train, epochs=250, batch_size=16, validation_split=0.2)
+    history = model.fit(X_train, Y_train, epochs=200, batch_size=32, validation_split=0.2)
     return history
 
 history = trainingModel(model)

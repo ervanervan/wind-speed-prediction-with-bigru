@@ -50,9 +50,8 @@ Y_train, Y_test = Y[:train_size], Y[train_size:]
 # Modifikasi arsitektur model
 def createModel():
     model = Sequential()
-    model.add(Bidirectional(GRU(75, activation='tanh', return_sequences=True), input_shape=(timeseries, 1)))
-    model.add(Bidirectional(GRU(30, activation='tanh', return_sequences=True)))
-    model.add(Bidirectional(GRU(30, activation='tanh', return_sequences=False)))
+    model.add(Bidirectional(GRU(64, activation='tanh', return_sequences=True), input_shape=(timeseries, 1)))
+    model.add(Bidirectional(GRU(32, activation='tanh')))
     model.add(Dense(1, activation='sigmoid'))
     model.summary()
     model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mae'])
@@ -62,7 +61,7 @@ model = createModel()
 
 # Melatih model
 def trainingModel(model):
-    history = model.fit(X_train, Y_train, epochs=80, batch_size=64, validation_split=0.2)
+    history = model.fit(X_train, Y_train, epochs=200, batch_size=64, validation_split=0.2)
     return history
 
 history = trainingModel(model)
