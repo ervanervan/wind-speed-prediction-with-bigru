@@ -14,7 +14,7 @@ rmse_train = [1.9747, 1.9657, 1.9642, 1.9615, 1.9235, 1.9843, 1.9749, 1.9669,
               2.0252, 1.9567, 2.0169, 1.9812, 1.9783, 1.9677, 1.9689, 2.0717, 
               2.0117, 1.9817, 1.9795, 1.9705]
 data_rmse_train = [i+1 for i in range(len(rmse_train))]
-model_name = "FFXTPI"
+model_name = "FFXANB"
 
 # Plot RMSE Training dengan garis tebal dan grid horizontal
 plt.figure(figsize=(14, 7))
@@ -24,7 +24,7 @@ plt.ylabel('RMSE')
 plt.xlabel('Percobaan')
 plt.legend(['RMSE'], loc='upper right')
 plt.grid(True)  # Tampilkan hanya grid horizontal
-plt.savefig("RMSE_Train"+model_name+".jpeg", format='jpeg', dpi=1000)
+plt.savefig("RMSE_Train_"+model_name+".jpeg", format='jpeg', dpi=1000)
 plt.show()
 
 
@@ -50,7 +50,7 @@ plt.ylabel('MAPE (%)')
 plt.xlabel('Percobaan')
 plt.legend(['MAPE'], loc='upper right')
 plt.grid(True)  # Tampilkan hanya grid horizontal
-plt.savefig("MAPE_Train"+model_name+".jpeg", format='jpeg', dpi=1000)
+plt.savefig("MAPE_Train_"+model_name+".jpeg", format='jpeg', dpi=1000)
 plt.show()
 
 
