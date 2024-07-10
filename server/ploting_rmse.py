@@ -2,22 +2,6 @@ import matplotlib.pyplot as plt
 
 # # RMSE TRAINING
 
-# rmse_train = [1,3,3,2,4,3,6,3,4,1,1,2]
-# data_rmse_train = []
-
-# for i in range (len(rmse_train)) :
-#     data_rmse_train.append(i+1)
-# # Plot RMSE Training
-# plt.figure(figsize=(14, 7))
-# plt.plot(data_rmse_train,rmse_train)
-# plt.title('RMSE Data Training')
-# plt.ylabel('RMSE')
-# plt.xlabel('Percobaan')
-# plt.legend(loc='upper right')
-# plt.grid(True)
-# # plt.savefig("RMSE_Train"+model_name+".jpeg", format='jpeg', dpi=1000)
-# plt.show()
-
 # RMSE TRAINING
 # rmse_train = [0.6474, 0.6443, 0.6423, 0.6413, 0.6441, 0.6508, 0.6455, 0.6463, 
 #               0.6448, 0.6447, 0.6471, 0.6464, 0.6575, 0.6479, 0.6522, 0.6530, 
