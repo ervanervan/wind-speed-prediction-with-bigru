@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
 
-
-
 # # RMSE TRAINING
 
 # rmse_train = [1,3,3,2,4,3,6,3,4,1,1,2]
