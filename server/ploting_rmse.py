@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 
-# RMSE TRAINING
 
 # RMSE TRAINING
 # rmse_train = [0.6474, 0.6443, 0.6423, 0.6413, 0.6441, 0.6508, 0.6455, 0.6463, 
