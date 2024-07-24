@@ -7,7 +7,7 @@ import IconData from "../assets/icons/IconData";
 import axios from "axios";
 import LossAVGANB from "../assets/images/Loss_Plot_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
 import ActPreAVGANB from "../assets/images/Actual_and_Prediction_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
-import ForcastAVGANB from "../assets/images/forecasting_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
+// import ForcastAVGANB from "../assets/images/forecasting_Bidirectional_GRU_FF_AVG_TANJUNGPINANG.jpeg";
 import AllBobot from "../components/AllBobot";
 import AllBias from "../components/AllBias";
 

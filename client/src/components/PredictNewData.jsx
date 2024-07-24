@@ -26,11 +26,11 @@ export default function PredictNewData({ type, image }) {
         input: inputData,
       });
     } else if (type === "ff_avg_tpi") {
-      res = await axios.post("http://localhost:5000/ff_avg_tpi-input-90", {
+      res = await axios.post("http://localhost:5000/ff-avg-tpi-input-90", {
         input: inputData,
       });
     } else if (type === "ff_x_tpi") {
-      res = await axios.post("http://localhost:5000/ff_avg_tpi-input-90", {
+      res = await axios.post("http://localhost:5000/ff-avg-tpi-input-90", {
         input: inputData,
       });
     }
