@@ -14,7 +14,7 @@ export default function PredictNewData({ type, image }) {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    // Disini Anda bisa melakukan sesuatu dengan inputData
+
     console.log("Input Data:", inputData);
     let res;
     if (type === "ff_avg_anb") {
@@ -35,7 +35,6 @@ export default function PredictNewData({ type, image }) {
       });
     }
     setData(res.data.predicted);
-    // Contoh: kirim data ke backend atau panggil fungsi prediksi
   };
 
   return (
@@ -77,13 +76,13 @@ export default function PredictNewData({ type, image }) {
           />
         )}
 
-        <div className="lg:w-full md:h-[36rem] lg:h-[44rem] overflow-hidden bg-transparent">
+        {/* <div className="lg:w-full md:h-[36rem] lg:h-[44rem] overflow-hidden bg-transparent">
           <img
             className="w-full h-full object-fill object-center rounded-md"
             src={image}
             alt=""
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );

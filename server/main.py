@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from Controller_FF_X_ANB import predict_ff_x_anb, data_ff_x_anb, X_data_ff_x_anb, predict_forcasting_ff_x_anb
+from Controller_FF_X_ANB import predict_ff_x_anb, data_ff_x_anb, X_data_ff_x_anb, predict_forcasting_ff_x_anb, predict_forcasting_ff_x_anb_by_input
 from Controller_FF_AVG_ANB import predict_ff_avg_anb, data_ff_avg_anb, X_data_ff_avg_anb, predict_forcasting_ff_avg_anb,predict_forcasting_ff_avg_anb_by_input
 from Controller_FF_AVG_TPI import predict_ff_avg_tpi, data_ff_avg_tpi, X_data_ff_avg_tpi, predict_forcasting_ff_avg_tpi
 from Controller_FF_X_TPI import predict_ff_x_tpi, data_ff_x_tpi, X_data_ff_x_tpi, predict_forcasting_ff_x_tpi
@@ -16,6 +16,17 @@ def ff_x_anb():
         # data = request.get_json()
         predicted = predict_ff_x_anb(X_data_ff_x_anb)
         return jsonify({'predicted' : predicted })
+    
+@app.route('/ff-x-anb-input-90', methods=['POST'])
+def ff_x_anb_by_input():
+    if request.method == 'POST':
+        data = request.get_json()
+        input_kecepatan_sebelumnya = data["input"]
+        # Memisahkan string berdasarkan koma
+        string_list = input_kecepatan_sebelumnya.split(',')
+        input_kecepatan_sebelumnya = [int(i) for i in string_list]
+        predicted = predict_forcasting_ff_x_anb_by_input(input_kecepatan_sebelumnya)
+        return jsonify({'predicted': predicted})
     
 @app.route('/ff-x-anb-original', methods=['GET'])
 def ff_x_anb_original():
@@ -63,8 +74,7 @@ def ff_avg_anb_by_input():
         input_kecepatan_sebelumnya = [int(i) for i in string_list]
         predicted = predict_forcasting_ff_avg_anb_by_input(input_kecepatan_sebelumnya)
         return jsonify({'predicted': predicted})
-    
-    
+
 @app.route('/ff-avg-anb-original', methods=['GET'])
 def ff_avg_anb_original():
     if request.method=='GET':

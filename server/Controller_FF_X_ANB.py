@@ -61,7 +61,7 @@ def predict_ff_x_anb(input_data):
     return data
 
 def predict_wind_speed_90days(model, scaler, input_data):
-    input_data_reshaped = np.array(input_data).reshape(timeseries, 1)  # Ubah dimensi input menjadi (5, 1)
+    input_data_reshaped = np.array(input_data).reshape(timeseries, 1)
     input_scaled = scaler.transform(input_data_reshaped)
     input_reshaped = np.reshape(input_scaled, (1, timeseries, 1))
     prediction_scaled = model.predict(input_reshaped)
@@ -69,22 +69,40 @@ def predict_wind_speed_90days(model, scaler, input_data):
     return prediction[0, 0]
 
 Y_test = np.reshape(Y_test, (Y_test.shape[0], 1))
-inputan_kecepatan = scaler.inverse_transform(Y_test[-(timeseries):])
+timeseries_input = scaler.inverse_transform(Y_test[-(timeseries):])
 
 
 def predict_forcasting_ff_x_anb():
-    kecepatan_sebelumnya = []
-    for i in range (len(inputan_kecepatan)):
-        kecepatan_sebelumnya.append(inputan_kecepatan[i][0])
+    timeseries_speeds = []
+    for i in range (len(timeseries_input)):
+        timeseries_speeds.append(timeseries_input[i][0])
 
     forecasted = []
     for i in range(90):
 
-        input_x = np.array(kecepatan_sebelumnya).reshape(-1, 1)
+        input_x = np.array(timeseries_speeds).reshape(-1, 1)
         prediction = predict_wind_speed_90days(model, scaler, input_x)
         forecasted.append(float(prediction))
         
-        kecepatan_sebelumnya.pop(0)
-        kecepatan_sebelumnya.append(float(prediction))
+        timeseries_speeds.pop(0)
+        timeseries_speeds.append(float(prediction))
 
+
+def predict_forcasting_ff_x_anb_by_input(input_data):
+    input_timeseries = np.array(input_data).reshape(1, -1)
+    timeseries_input = scaler.inverse_transform(input_timeseries)
+
+    timeseries_speeds = []
+    for i in range(len(timeseries_input[0])):
+        timeseries_speeds.append(timeseries_input[0][i])
+
+    forecasted = []
+    for i in range(90):
+        input_x = np.array(timeseries_speeds).reshape(-1, 1)
+        prediction = predict_wind_speed_90days(model, scaler, input_x)
+        forecasted.append(float(prediction))
+        
+        timeseries_speeds.pop(0)
+        timeseries_speeds.append(float(prediction))
+    
     return forecasted

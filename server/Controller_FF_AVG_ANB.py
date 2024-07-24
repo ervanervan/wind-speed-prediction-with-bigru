@@ -90,7 +90,6 @@ def predict_forcasting_ff_avg_anb():
 
 
 def predict_forcasting_ff_avg_anb_by_input(input_data):
-    # Mengubah input_data menjadi array numpy dan mengatur ulang bentuknya
     input_timeseries = np.array(input_data).reshape(1, -1)
     timeseries_input = scaler.inverse_transform(input_timeseries)
 
