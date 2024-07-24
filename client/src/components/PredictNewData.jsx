@@ -25,6 +25,14 @@ export default function PredictNewData({ type, image }) {
       res = await axios.post("http://localhost:5000/ff-x-anb-input-90", {
         input: inputData,
       });
+    } else if (type === "ff_avg_tpi") {
+      res = await axios.post("http://localhost:5000/ff_avg_tpi-input-90", {
+        input: inputData,
+      });
+    } else if (type === "ff_x_tpi") {
+      res = await axios.post("http://localhost:5000/ff_avg_tpi-input-90", {
+        input: inputData,
+      });
     }
     setData(res.data.predicted);
     // Contoh: kirim data ke backend atau panggil fungsi prediksi
