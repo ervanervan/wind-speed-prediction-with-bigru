@@ -88,4 +88,23 @@ def predict_forcasting_ff_avg_anb():
         timeseries_speeds.pop(0)
         timeseries_speeds.append(float(prediction))
 
+
+def predict_forcasting_ff_avg_anb_by_input(input_data):
+    # Mengubah input_data menjadi array numpy dan mengatur ulang bentuknya
+    input_timeseries = np.array(input_data).reshape(1, -1)
+    timeseries_input = scaler.inverse_transform(input_timeseries)
+
+    timeseries_speeds = []
+    for i in range(len(timeseries_input[0])):
+        timeseries_speeds.append(timeseries_input[0][i])
+
+    forecasted = []
+    for i in range(90):
+        input_x = np.array(timeseries_speeds).reshape(-1, 1)
+        prediction = predict_wind_speed_90days(model, scaler, input_x)
+        forecasted.append(float(prediction))
+        
+        timeseries_speeds.pop(0)
+        timeseries_speeds.append(float(prediction))
+    
     return forecasted

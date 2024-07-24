@@ -39,9 +39,7 @@ const FF_AVG_ANB = () => {
     {
       label: "Predict New Data",
       icon: IconData,
-      content: (
-        <PredictNewData image={ForcastAVGANB} data={newData ? newData : []} />
-      ),
+      content: <PredictNewData type={"ff_avg_anb"} image={ForcastAVGANB} />,
     },
     {
       label: "All Bobot",
@@ -87,14 +85,14 @@ const FF_AVG_ANB = () => {
       setBias(biasData);
     }
 
-    async function getNewData() {
-      const response = await axios.get(
-        "http://localhost:5000/ff-avg-anb-forcasting"
-      );
-      setNewData(response.data.predicted);
-    }
+    // async function getNewData() {
+    //   const response = await axios.get(
+    //     "http://localhost:5000/ff-avg-anb-forcasting"
+    //   );
+    //   setNewData(response.data.predicted);
+    // }
     getData();
-    getNewData();
+    // getNewData();
   }, []);
 
   return (
