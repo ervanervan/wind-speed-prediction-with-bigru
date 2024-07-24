@@ -7,7 +7,7 @@ import PredictNewData from "../components/PredictNewData";
 import axios from "axios";
 import LossAVGANB from "../assets/images/Loss_Plot_Bidirectional_GRU_FF_X_ANAMBAS.jpeg";
 import ActPreAVGANB from "../assets/images/Actual_and_Prediction_Bidirectional_GRU_FF_X_ANAMBAS.jpeg";
-import ForcastAVGANB from "../assets/images/forecasting_Bidirectional_GRU_FF_X_ANAMBAS.jpeg";
+// import ForcastAVGANB from "../assets/images/forecasting_Bidirectional_GRU_FF_X_ANAMBAS.jpeg";
 import AllBobot from "../components/AllBobot";
 import AllBias from "../components/AllBias";
 
@@ -39,9 +39,7 @@ const FF_X_ANB = () => {
     {
       label: "Predict New Data",
       icon: IconData,
-      content: (
-        <PredictNewData image={ForcastAVGANB} data={newData ? newData : []} />
-      ),
+      content: <PredictNewData type={"ff_x_anb"} />,
     },
     {
       label: "All Bobot",
@@ -86,14 +84,14 @@ const FF_X_ANB = () => {
       setBias(biasData);
     }
 
-    async function getNewData() {
-      const response = await axios.get(
-        "http://localhost:5000/ff-x-anb-forcasting"
-      );
-      setNewData(response.data.predicted);
-    }
+    // async function getNewData() {
+    //   const response = await axios.get(
+    //     "http://localhost:5000/ff-x-anb-forcasting"
+    //   );
+    //   setNewData(response.data.predicted);
+    // }
     getData();
-    getNewData();
+    // getNewData();
   }, []);
 
   return (
