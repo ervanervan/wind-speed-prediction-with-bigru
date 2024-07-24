@@ -61,7 +61,7 @@ def predict_ff_x_tpi(input_data):
     return data
 
 def predict_wind_speed_90days(model, scaler, input_data):
-    input_data_reshaped = np.array(input_data).reshape(timeseries, 1)  # Ubah dimensi input menjadi (5, 1)
+    input_data_reshaped = np.array(input_data).reshape(timeseries, 1)
     input_scaled = scaler.transform(input_data_reshaped)
     input_reshaped = np.reshape(input_scaled, (1, timeseries, 1))
     prediction_scaled = model.predict(input_reshaped)
