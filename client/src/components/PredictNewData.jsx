@@ -40,7 +40,7 @@ export default function PredictNewData({ type, image }) {
   return (
     <div className="container mx-auto">
       <div className="flex flex-col gap-10">
-        {/* Form Input */}
+        Form Input
         <form onSubmit={handleFormSubmit} className="md:max-w-2xl w-full">
           <label
             htmlFor="inputData"
