@@ -40,7 +40,7 @@ export default function PredictNewData({ type, image }) {
   return (
     <div className="container mx-auto">
       <div className="flex flex-col gap-10">
-        {/* Form Input */}
+        Form Input
         <form onSubmit={handleFormSubmit} className="md:max-w-2xl w-full">
           <label
             htmlFor="inputData"
@@ -66,7 +66,6 @@ export default function PredictNewData({ type, image }) {
             </button>
           </div>
         </form>
-
         {data.length > 0 && (
           <ReusableTable
             isNewData={true}
@@ -75,7 +74,6 @@ export default function PredictNewData({ type, image }) {
             data={data}
           />
         )}
-
         {/* <div className="lg:w-full md:h-[36rem] lg:h-[44rem] overflow-hidden bg-transparent">
           <img
             className="w-full h-full object-fill object-center rounded-md"
