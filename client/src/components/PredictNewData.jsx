@@ -60,7 +60,7 @@ export default function PredictNewData({ type, image }) {
             />
             <button
               type="submit"
-              className="inline-flex px-7 py-2 font-medium shrink-0 text-base border border-transparent rounded-lg border-dark-1 hover:bg-gray-800 bg-transparent transition-all duration-300 text-white-1"
+              className="inline-flex px-7 py-2 font-medium shrink-0 text-base border rounded-lg border-dark-1 hover:bg-gray-800 bg-transparent transition-all duration-300 text-white-1"
             >
               Prediksi
             </button>
