@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import IconData from "../assets/icons/IconData";
-import TabsData from "../components/TabsData";
+
+import axios from "axios";
+
+import AllBias from "../components/AllBias";
 import AllData from "../components/AllData";
+import TabsData from "../components/TabsData";
+import AllBobot from "../components/AllBobot";
 import PredictPastData from "../components/PredictPastData";
 import PredictNewData from "../components/PredictNewData";
-import axios from "axios";
+
+import IconData from "../assets/icons/IconData";
 import LossAVGANB from "../assets/images/Loss_Plot_Bidirectional_GRU_FF_X_TANJUNGPINANG.jpeg";
 import ActPreAVGANB from "../assets/images/Actual_and_Prediction_Bidirectional_GRU_FF_X_TANJUNGPINANG.jpeg";
-// import ForcastAVGANB from "../assets/images/forecasting_Bidirectional_GRU_FF_X_TANJUNGPINANG.jpeg";
-import AllBobot from "../components/AllBobot";
-import AllBias from "../components/AllBias";
 
 const FF_X_TPI = () => {
   const [data, setData] = useState([]);
