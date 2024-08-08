@@ -1,9 +1,10 @@
 import React from "react";
-import PatternHero from "../assets/pattern_hero.svg";
+
 import gradientTL from "../assets/gradient-t-l.svg";
 import gradientBL from "../assets/gradient-b-l.svg";
 import gradientTR from "../assets/gradient-t-r.svg";
 import gradientBR from "../assets/gradient-b-r.svg";
+import PatternHero from "../assets/pattern_hero.svg";
 
 import Navbar from "../components/Navbar";
 import Tabs from "../components/Tabs";
