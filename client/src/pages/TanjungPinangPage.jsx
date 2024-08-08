@@ -1,15 +1,19 @@
 import React from "react";
+
+import FF_X_TPI from "./FF_X_TPI";
+import FF_AVG_TPI from "./FF_AVG_TPI";
+
+import Tabs from "../components/Tabs";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
 import PatternHero from "../assets/pattern_hero.svg";
 import gradientTL from "../assets/gradient-t-l.svg";
 import gradientBL from "../assets/gradient-b-l.svg";
 import gradientTR from "../assets/gradient-t-r.svg";
 import gradientBR from "../assets/gradient-b-r.svg";
+
 import IconAir from "../assets/icons/IconAir";
-import Tabs from "../components/Tabs";
-import Footer from "../components/Footer";
-import FF_AVG_TPI from "./FF_AVG_TPI";
-import FF_X_TPI from "./FF_X_TPI";
 
 const TanjungPinangPage = () => {
   const tabs = [
