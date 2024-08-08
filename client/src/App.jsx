@@ -2,8 +2,8 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import FF_X_ANB from "./pages/FF_X_ANB";
-import TanjungPinangPage from "./pages/TanjungPinangPage";
 import AnambasPage from "./pages/AnambasPage";
+import TanjungPinangPage from "./pages/TanjungPinangPage";
 
 function App() {
   return (
