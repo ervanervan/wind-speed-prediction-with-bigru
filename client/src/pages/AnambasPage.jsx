@@ -6,12 +6,13 @@ import gradientTR from "../assets/gradient-t-r.svg";
 import gradientBR from "../assets/gradient-b-r.svg";
 import PatternHero from "../assets/pattern_hero.svg";
 
-import Navbar from "../components/Navbar";
-import Tabs from "../components/Tabs";
-import IconAir from "../assets/icons/IconAir";
 import FF_X_ANB from "./FF_X_ANB";
 import FF_AVG_ANB from "./FF_AVG_ANB";
+import Tabs from "../components/Tabs";
+import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+
+import IconAir from "../assets/icons/IconAir";
 
 const AnambasPage = () => {
   const tabs = [
